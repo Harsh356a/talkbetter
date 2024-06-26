@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { data } from "autoprefixer";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 const Configuration = () => {
+  const idx = useParams();
+
   const [firstMessage, setFirstMessage] = useState("");
   const [systemPrompt, setSystemPrompt] = useState("");
   const [provider, setProvider] = useState("openai");
@@ -91,61 +93,71 @@ const Configuration = () => {
       console.error("Error:", error);
     }
   };
-  const cloneProect = async () => {
-    try {
-      const response = await axios.get(
-        "https://api.npoint.io/ff46dfdd9ca4d5785c4e"
-      );
-      setCloneData([...cloneData, { ...response.data }]);
+  // const cloneProect = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://api.npoint.io/ff46dfdd9ca4d5785c4e"
+  //     );
+  //     setCloneData([...cloneData, { ...response.data }]);
 
-      setCloneName(response.data.name);
-      setCloneId(response.data.id);
-      setClonetFirstMessage(response.data.firstMessage);
-      setCloneSystemPrompt(response.data.model.messages[0].content);
-      setCloneProvider(response.data.provider);
-      setCloneModel(response.data.model);
-      setCloneKnowledgeBase(response.data.knowledgeBase);
-      setCloneTemperature(response.data.temperature);
-      setCloneMaxTokens(response.data.maxTokens);
-      setCloneDetectSpeechEmotion(response.data.detectSpeechEmotion);
-      setCloneTransprovider(response.data.transProvider);
-      setCloneTransModel(response.data.transModel);
-      setCloneVoiceProvider(response.data.voiceProvider);
-      setCloneVoice(response.data.voice.voice);
+  //     setCloneName(response.data.name);
+  //     setCloneId(response.data.id);
+  //     setClonetFirstMessage(response.data.firstMessage);
+  //     setCloneSystemPrompt(response.data.model.messages[0].content);
+  //     setCloneProvider(response.data.provider);
+  //     setCloneModel(response.data.model);
+  //     setCloneKnowledgeBase(response.data.knowledgeBase);
+  //     setCloneTemperature(response.data.temperature);
+  //     setCloneMaxTokens(response.data.maxTokens);
+  //     setCloneDetectSpeechEmotion(response.data.detectSpeechEmotion);
+  //     setCloneTransprovider(response.data.transProvider);
+  //     setCloneTransModel(response.data.transModel);
+  //     setCloneVoiceProvider(response.data.voiceProvider);
+  //     setCloneVoice(response.data.voice.voice);
 
-      setCloneStability(response.data.voice.stability);
-      setCloneSimilarityBoost(response.data.voice.similarityBoost);
-      setCloneLanguage(response.data.language);
-      console.log(response);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  //     setCloneStability(response.data.voice.stability);
+  //     setCloneSimilarityBoost(response.data.voice.similarityBoost);
+  //     setCloneLanguage(response.data.language);
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = localStorage.getItem("Token");
+        if (!token) {
+          return;
+        }
+
         const response = await axios.get(
-          "https://api.npoint.io/ff46dfdd9ca4d5785c4e"
+          `https://users.trainright.fit/api/configs/findOneAssistantById?id=${idx.id}`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
         );
         const data = response.data;
-        console.log(data);
-        setName(data.name);
-        setId(data.id);
-        setFirstMessage(data.firstMessage);
-        setSystemPrompt(data.model.messages[0].content);
-        setProvider(data.provider);
-        setModel(data.model);
-        setKnowledgeBase(data.knowledgeBase);
-        setTemperature(data.temperature);
-        setMaxTokens(data.maxTokens);
-        setDetectSpeechEmotion(data.detectSpeechEmotion);
-        setTransprovider(data.transProvider);
-        setTransModel(data.transModel);
-        setVoiceProvider(data.voiceProvider);
-        setVoice(data.voice.voice);
-        setStability(data.voice.stability);
-        setSimilarityBoost(data.voice.similarityBoost);
-        setLanguage(data.language);
+        console.log("id", data.data);
+        setName(data.data.name);
+        setId(data.data.assistantId);
+        // setFirstMessage(data.firstMessage);
+        setSystemPrompt(data.data.instructions);
+        // setProvider(data.provider);
+        // setModel(data.model);
+        // setKnowledgeBase(data.knowledgeBase);
+        // setTemperature(data.temperature);
+        // setMaxTokens(data.maxTokens);
+        // setDetectSpeechEmotion(data.detectSpeechEmotion);
+        // setTransprovider(data.transProvider);
+        // setTransModel(data.transModel);
+        // setVoiceProvider(data.voiceProvider);
+        // setVoice(data.voice.voice);
+        // setStability(data.voice.stability);
+        // setSimilarityBoost(data.voice.similarityBoost);
+        // setLanguage(data.language);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -166,15 +178,15 @@ const Configuration = () => {
                 {cloneData.length > 0 ? cloneId : id}
               </p>
               {/* {cloneData.map((e, idx) => {
-                return (
-                  <div key={idx}>
-                    <h1 className="text-2xl font-semibold">
-                      Mary(copy{idx + 1})
-                    </h1>
-                    <p className="text-sm mt-1">{e.id}</p>
-                  </div>
-                );
-              })} */}
+                  return (
+                    <div key={idx}>
+                      <h1 className="text-2xl font-semibold">
+                        Mary(copy{idx + 1})
+                      </h1>
+                      <p className="text-sm mt-1">{e.id}</p>
+                    </div>
+                  );
+                })} */}
             </div>
 
             <div className="flex items-center space-x-4">
@@ -197,7 +209,7 @@ const Configuration = () => {
               </button>
               <button
                 className="bg-zinc-600 hover:bg-zinc-700 p-2 rounded-full"
-                onClick={cloneProect}
+                // onClick={cloneProect}
               >
                 Clone
               </button>

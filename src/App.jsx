@@ -12,6 +12,7 @@ import Phone from "./pages/Phone";
 import AssistantDetails from "./components/AssistentbyId";
 import Api from "./components/Api";
 import Call from "./components/Call";
+import AssistantList from "./components/AssistantList";
 
 function App() {
   const [showAssis, setShowSis] = useState(false);
@@ -31,8 +32,9 @@ function App() {
             element={<Assistant showAsisFn={showAsisFn} />}
           />
           <Route path="/assistant/:id" element={<AssistantDetails />} />
-          <Route path="/configure" element={<Configuration />} />
+          <Route path="/configure/:id" element={<Configuration />} />
           <Route path="/configured" element={<Configure />} />
+          <Route path="/assistantlist" element={<AssistantList />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/demo" element={<Demo />} />

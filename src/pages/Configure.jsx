@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import ReactTagInput from "@pathofdev/react-tag-input";
+import "@pathofdev/react-tag-input/build/index.css";
 
 const Configuration = () => {
   const [firstFiller, setFirstFiller] = useState("");
   const [voiceId, setVoiceId] = useState("");
   const [audioSpeed, setAudioSpeed] = useState(1);
+  const [fillers, setFillers] = useState([]);
   const [aiModels, setAiModels] = useState([]);
   const [selectedAiModel, setSelectedAiModel] = useState("");
   const [loading, setLoading] = useState(true);
@@ -17,7 +20,7 @@ const Configuration = () => {
         if (!token) {
           return;
         }
-        
+
         const response = await axios.get("https://users.trainright.fit/api/configs/getConfigs", {
           headers: {
             Authorization: `${token}`,
@@ -27,6 +30,7 @@ const Configuration = () => {
         setFirstFiller(data.firstFiller);
         setVoiceId(data.voiceId[0]);
         setAudioSpeed(parseFloat(data.audioSpeed?.$numberDecimal));
+        setFillers(data.fillers); // Assuming fillers is an array
         setAiModels(data.aiModels);
         setSelectedAiModel(data.aiModels[0]?.name);
         setLoading(false);
@@ -52,7 +56,7 @@ const Configuration = () => {
         }
 
         const configData = {
-          fillers: ["Great"],
+          fillers: fillers,
           voiceId: voiceId,
           firstFiller: firstFiller,
           audioSpeed: audioSpeed.toString(), // Convert audioSpeed to string as per API requirements
@@ -86,6 +90,16 @@ const Configuration = () => {
 
   const handleAudioSpeedChange = (event) => {
     setAudioSpeed(parseFloat(event.target.value));
+  };
+
+  const handleTagDelete = (i) => {
+    const newFillers = [...fillers];
+    newFillers.splice(i, 1);
+    setFillers(newFillers);
+  };
+
+  const handleTagAddition = (tag) => {
+    setFillers([...fillers, tag]);
   };
 
   if (loading) {
@@ -140,20 +154,16 @@ const Configuration = () => {
                 readOnly={!editable}
               />
             </div>
+            
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">AI Model:</label>
-              <select
-                value={selectedAiModel}
-                onChange={handleAiModelChange}
-                className={`w-full p-2 bg-zinc-800 rounded text-white ${editable ? "" : "pointer-events-none"}`}
-                disabled={!editable}
-              >
-                {aiModels.map((model, index) => (
-                  <option key={index} value={model.name}>
-                    {model.name}
-                  </option>
-                ))}
-              </select>
+              <label className="block text-sm font-medium mb-1">Fillers:</label>
+              <ReactTagInput
+              readOnly={!editable}
+                tags={fillers}
+                placeholder="Add fillers"
+                onChange={(newTags) => setFillers(newTags)}
+                editable={editable} // Make editable conditionally based on `editable` state
+              />
             </div>
           </div>
         </div>

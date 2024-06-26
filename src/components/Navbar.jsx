@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Outlet, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ApllePodCastLogo from "../images/ApplePodcastsLogo.png";
 import File from "../images/File.png";
 import Headset from "../images/Headset.png";
@@ -14,12 +14,13 @@ import Documents from "./Documents";
 import Voice from "./Voice";
 import Api from "./Api";
 import Call from "./Call";
+
 const Sidebar = () => {
   const [response, setResponse] = useState("");
-  // const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     let userDetails = JSON.parse(localStorage.getItem("UserDetails"));
@@ -37,10 +38,13 @@ const Sidebar = () => {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
+
   const [activeTab, setActiveTab] = useState("Logs");
+
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
   const tabContents = {
     Logs: [
       {
@@ -63,17 +67,25 @@ const Sidebar = () => {
     console.log(params.pathname);
   }, []);
 
+  const hideSidebarPaths = [
+    "/login",
+    "/register",
+    "/demo",
+    "/assistants",
+    "/assistantlist",
+    "/configured"
+  ];
+
+  const hideSidebarRegex = /^\/(configure|assistant)\/.+$/;
+
+  const shouldHideSidebar =
+    hideSidebarPaths.includes(location.pathname) ||
+    hideSidebarRegex.test(location.pathname);
+
   return (
     <div
       className={`h-screen fixed left-0 flex flex-col rounded w-full cursor-pointer ${
-        (window.location.pathname == "/login" ||
-          window.location.pathname == "/register" ||
-          window.location.pathname == "/demo" ||
-          window.location.pathname == "/assistants" ||
-          window.location.pathname == "/configure" ||
-          window.location.pathname == "/assistant/:id" ||
-          window.location.pathname == "/configured") &&
-        "hidden"
+        shouldHideSidebar && "hidden"
       }`}
     >
       <div className="bg-gray-500 w-full py-3 lg:pl-10 flex justify-between items-center pl-2 flex-col sm:flex-row gap-5">
@@ -228,20 +240,19 @@ const Sidebar = () => {
           </div>
         </div>
       )}
-      {window.location.pathname == "/" ? (
+      {location.pathname === "/" ? (
         <Assistant open={open} />
-      ) : window.location.pathname == "/phone" ? (
+      ) : location.pathname === "/phone" ? (
         <Phone open={open} />
-      ) : window.location.pathname == "/documents" ? (
+      ) : location.pathname === "/documents" ? (
         <Documents open={open} />
-      ) : window.location.pathname == "/voice" ? (
+      ) : location.pathname === "/voice" ? (
         <Voice open={open} />
-      ) : window.location.pathname == "/call" ? (
+      ) : location.pathname === "/call" ? (
         <Call open={open} />
       ) : (
-        <Api open={open}/>
+        <Api open={open} />
       )}
-      {/* <Outlet /> */}
     </div>
   );
 };

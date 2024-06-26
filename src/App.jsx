@@ -1,5 +1,4 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
 import Assistant from "./pages/Assistant";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -10,6 +9,9 @@ import Configuration from "./pages/Configuration";
 import "./pages/transition.css";
 import Configure from "./pages/Configure";
 import Phone from "./pages/Phone";
+import AssistantDetails from "./components/AssistentbyId";
+import Api from "./components/Api";
+import Call from "./components/Call";
 
 function App() {
   const [showAssis, setShowSis] = useState(false);
@@ -28,6 +30,7 @@ function App() {
             path="/assistants"
             element={<Assistant showAsisFn={showAsisFn} />}
           />
+          <Route path="/assistant/:id" element={<AssistantDetails />} />
           <Route path="/configure" element={<Configuration />} />
           <Route path="/configured" element={<Configure />} />
           <Route path="/login" element={<Login />} />

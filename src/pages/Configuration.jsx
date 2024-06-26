@@ -125,9 +125,9 @@ const Configuration = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://api.npoint.io/76adc632930674d0ae00"
+          "https://api.npoint.io/ff46dfdd9ca4d5785c4e"
         );
-        const data = response.data[0];
+        const data = response.data;
         console.log(data);
         setName(data.name);
         setId(data.id);

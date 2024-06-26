@@ -13,6 +13,7 @@ import Phone from "./Phone";
 import Documents from "./Documents";
 import Voice from "./Voice";
 import Api from "./Api";
+import Call from "./Call";
 const Sidebar = () => {
   const [response, setResponse] = useState("");
   // const { id } = useParams();
@@ -70,6 +71,7 @@ const Sidebar = () => {
           window.location.pathname == "/demo" ||
           window.location.pathname == "/assistants" ||
           window.location.pathname == "/configure" ||
+          window.location.pathname == "/assistant/:id" ||
           window.location.pathname == "/configured") &&
         "hidden"
       }`}
@@ -234,8 +236,10 @@ const Sidebar = () => {
         <Documents open={open} />
       ) : window.location.pathname == "/voice" ? (
         <Voice open={open} />
+      ) : window.location.pathname == "/call" ? (
+        <Call open={open} />
       ) : (
-        window.location.pathname == "/call" && <Api open={open} />
+        <Api open={open}/>
       )}
       {/* <Outlet /> */}
     </div>

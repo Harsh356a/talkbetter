@@ -62,7 +62,7 @@ const BlankTemplatePopup = ({ onClose }) => {
       console.log("Assistant created successfully:", response.data);
       // Optionally, you can handle success message or any other action here
       // For example, navigate to a different page
-      navigate("/dashboard"); // Navigate to dashboard or any other route after successful creation
+      navigate("/assistantlist"); // Navigate to dashboard or any other route after successful creation
     } catch (error) {
       console.error("Error creating assistant:", error);
       // Optionally, you can handle error message or any other action here
@@ -110,13 +110,13 @@ const BlankTemplatePopup = ({ onClose }) => {
               placeholder="Enter the Name"
             />
             <label htmlFor="instruction">Voicebot Instructions</label>
-            <input
-              type="text"
+            <textarea
               id="instruction"
               value={instruction}
               onChange={(e) => setInstruction(e.target.value)}
               className="p-2 w-full border outline-none rounded-md placeholder:text-black text-black"
               placeholder="Enter the Instructions"
+              rows="5" // Set the number of rows to control the height
             />
             <label htmlFor="config">Select Configuration</label>
             <div className="flex flex-col gap-2">

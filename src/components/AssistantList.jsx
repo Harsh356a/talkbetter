@@ -45,30 +45,37 @@ const AssistantsList = () => {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-8 min-h-screen h-fit bg-gray-600">
       <h1 className="text-3xl font-bold mb-4 text-center text-white">Assistants</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {assistants.map((assistant) => (
           <div
             key={assistant._id}
-            className={`bg-zinc-900 rounded-lg p-4 relative cursor-pointer transition-transform transform hover:scale-105 ${
-              selectedAssistantId === assistant._id ? 'border-2 border-green-500' : ''
-            }`}
+            className="assistant-card"
             onClick={() => handleAssistantClick(assistant._id)}
           >
-            <h2 className="text-xl text-white font-semibold mb-2">{assistant.name}</h2>
-            <p className="text-white mb-2">{assistant.instructions}</p>
-            <div className="text-white text-sm">
-              <p><strong>Assistant ID:</strong> {assistant.assistantId}</p>
-              <p><strong>Twilio Number:</strong> {assistant.twilioNumber}</p>
-              <p><strong>Created At:</strong> {new Date(assistant.createdAt).toLocaleString()}</p>
-              <p><strong>Updated At:</strong> {new Date(assistant.updatedAt).toLocaleString()}</p>
-            </div>
-            {selectedAssistantId === assistant._id && (
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg">
-                <span className="text-3xl text-white">✓</span>
+            <div
+              className={`bg-zinc-900 rounded-lg p-4 relative cursor-pointer ${
+                selectedAssistantId === assistant._id ? 'border-2 border-green-500' : ''
+              }`}
+              style={{ height: "300px" }} // Fixed height for the card
+            >
+              <div className="overflow-y-auto h-full"> {/* Scrollable inner content */}
+                <h2 className="text-xl text-white font-semibold mb-2">{assistant.name}</h2>
+                <p className="text-white mb-2">{assistant.instructions}</p>
+                <div className="text-white text-sm">
+                  <p><strong>Assistant ID:</strong> {assistant.assistantId}</p>
+                  <p><strong>Twilio Number:</strong> {assistant.twilioNumber}</p>
+                  <p><strong>Created At:</strong> {new Date(assistant.createdAt).toLocaleString()}</p>
+                  <p><strong>Updated At:</strong> {new Date(assistant.updatedAt).toLocaleString()}</p>
+                </div>
+                {selectedAssistantId === assistant._id && (
+                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg">
+                    <span className="text-3xl text-white">✓</span>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         ))}
       </div>
@@ -80,7 +87,7 @@ const AssistantsList = () => {
         </Link>
         {selectedAssistantId && (
           <button
-            className="bg-green-700 text-white px-4 py-2 rounded-lg"
+            className="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors duration-300"
             onClick={() => navigate(`/configure/${selectedAssistantId}`)}
           >
             Continue

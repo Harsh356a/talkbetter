@@ -142,7 +142,8 @@ const Configuration = () => {
           }
         );
         const data = response.data;
-        console.log("id", data.data);
+        localStorage.setItem("APIKEY",data.data.apiKey)
+        console.log("id", data.data.apiKey);
         setName(data.data.name);
         setId(data.data.assistantId);
         // setFirstMessage(data.firstMessage);

@@ -40,8 +40,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/demo" element={<Demo />} />
-          <Route path="/chatbots" element={<Chatbot/>} />
-          <Route path="/voicebots" element={<Voicebot/>} />
+          {/* <Route path="/chatbots" element={<Chatbot/>} /> */}
+          {/* <Route path="/voicebots" element={<Voicebot/>} /> */}
         </Routes>
       </BrowserRouter>
     </div>

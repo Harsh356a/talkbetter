@@ -4,6 +4,7 @@ import axios from "axios";
 import { data } from "autoprefixer";
 import { Link, useParams } from "react-router-dom";
 import Chatbot from "./Chatbot";
+import Voicebot from "./Voicebot";
 const Configuration = () => {
   const idx = useParams();
 
@@ -47,6 +48,16 @@ const Configuration = () => {
   const [clonesimilarityBoost, setCloneSimilarityBoost] = useState(0.5);
   const [clonelanguage, setCloneLanguage] = useState("en");
   const [show, setShow] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isChatVisible, setIsChatVisible] = useState(false)
+
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
+
+  const toggleChat = () => {
+    setIsChatVisible(!isChatVisible);
+  };
 
   const handleButtonClick = (contentId) => {
     setActiveContent(contentId);
@@ -142,7 +153,7 @@ const Configuration = () => {
           }
         );
         const data = response.data;
-        localStorage.setItem("APIKEY",data.data.apiKey)
+        localStorage.setItem("APIKEY", data.data.apiKey);
         console.log("id", data.data.apiKey);
         setName(data.data.name);
         setId(data.data.assistantId);
@@ -193,9 +204,12 @@ const Configuration = () => {
             </div>
 
             <div className="flex items-center space-x-4">
-            <Link to={"/voicebots"}>
+              <div>
                 {show ? <Chatbot data={data.data.apiKey} /> : ""}
-                <button className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                <button
+                  className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded inline-flex items-center"
+                  onClick={toggleVisibility}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -210,12 +224,40 @@ const Configuration = () => {
                       d="M14.752 11.168l-9.4-9.4a1.25 1.25 0 011.768-1.768l9.4 9.4m0 0l4.2 4.2m-4.2-4.2L19.824 21.34a1.25 1.25 0 01-1.768 1.768L10.752 15.168m4-4L5.568 1.752A1.25 1.25 0 003.8 3.52l9.4 9.4"
                     />
                   </svg>
-                  <span>Talk with {cloneData.length > 0 ? clone : name}</span>
+                  <span>Ask to {cloneData.length > 0 ? clone : name}</span>
                 </button>
-              </Link>
-              <Link to={"/chatbots"}>
+              </div>
+
+              {isVisible && (
+                <div className="fixed  inset-0 flex items-center justify-center  bg-black bg-opacity-50">
+                  <div className=" p-8 h-1/2 bg-[#0E0E18] rounded shadow-lg relative">
+                    <button
+                      className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+                      onClick={toggleVisibility}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                   <Voicebot/>
+                  </div>
+                </div>
+              )}
+              <div to={"/chatbots"}>
                 {show ? <Chatbot data={data.data.apiKey} /> : ""}
-                <button className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                <button onClick={toggleChat} className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                  
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -232,7 +274,34 @@ const Configuration = () => {
                   </svg>
                   <span>Chat with {cloneData.length > 0 ? clone : name}</span>
                 </button>
-              </Link>
+              </div>
+              
+{isChatVisible && (
+<div className="fixed  inset-0 flex items-center justify-center  bg-black bg-opacity-50">
+  <div className=" p-8 h-40 bg-[#0E0E18] rounded shadow-lg relative">
+    <button
+      className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+      onClick={toggleChat}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        className="w-6 h-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+   <Chatbot/>
+  </div>
+</div>
+)}
               <button
                 className="bg-zinc-600 hover:bg-zinc-700 p-2 rounded-full"
                 // onClick={cloneProect}

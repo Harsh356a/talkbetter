@@ -128,7 +128,7 @@ const Voicebot = () => {
   return (
     <div>
       <h1 style={{ fontSize: "20px" }}>Voice Assistant Application</h1>
-      <div style={{ position: "fixed", bottom: "20px", right: "20px" }}>
+      <div style={{ position: "fixed", top: "500px", right: "650px" }}>
         <div className="check">
           <h2>{text}</h2>
         </div>

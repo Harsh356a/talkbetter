@@ -13,6 +13,8 @@ import AssistantDetails from "./components/AssistentbyId";
 import Api from "./components/Api";
 import Call from "./components/Call";
 import AssistantList from "./components/AssistantList";
+import Chatbot from "./pages/Chatbot";
+import Voicebot from "./pages/Voicebot";
 
 function App() {
   const [showAssis, setShowSis] = useState(false);
@@ -38,6 +40,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/demo" element={<Demo />} />
+          <Route path="/chatbots" element={<Chatbot/>} />
+          <Route path="/voicebots" element={<Voicebot/>} />
         </Routes>
       </BrowserRouter>
     </div>

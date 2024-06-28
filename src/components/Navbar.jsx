@@ -73,7 +73,9 @@ const Sidebar = () => {
     "/demo",
     "/assistants",
     "/assistantlist",
-    "/configured"
+    "/configured",
+    "/chatbots",
+    "/voicebots"
   ];
 
   const hideSidebarRegex = /^\/(configure|assistant)\/.+$/;

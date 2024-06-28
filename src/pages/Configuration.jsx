@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { data } from "autoprefixer";
 import { Link, useParams } from "react-router-dom";
+import Chatbot from "./Chatbot";
 const Configuration = () => {
   const idx = useParams();
 
@@ -45,6 +46,7 @@ const Configuration = () => {
   const [clonestability, setCloneStability] = useState(0.3);
   const [clonesimilarityBoost, setCloneSimilarityBoost] = useState(0.5);
   const [clonelanguage, setCloneLanguage] = useState("en");
+  const [show, setShow] = useState(false);
 
   const handleButtonClick = (contentId) => {
     setActiveContent(contentId);
@@ -190,23 +192,46 @@ const Configuration = () => {
             </div>
 
             <div className="flex items-center space-x-4">
-              <button className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M14.752 11.168l-9.4-9.4a1.25 1.25 0 011.768-1.768l9.4 9.4m0 0l4.2 4.2m-4.2-4.2L19.824 21.34a1.25 1.25 0 01-1.768 1.768L10.752 15.168m4-4L5.568 1.752A1.25 1.25 0 003.8 3.52l9.4 9.4"
-                  />
-                </svg>
-                <span>Talk with {cloneData.length > 0 ? clone : name}</span>
-              </button>
+            <Link to={"/voicebots"}>
+                {show ? <Chatbot data={data.data.apiKey} /> : ""}
+                <button className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M14.752 11.168l-9.4-9.4a1.25 1.25 0 011.768-1.768l9.4 9.4m0 0l4.2 4.2m-4.2-4.2L19.824 21.34a1.25 1.25 0 01-1.768 1.768L10.752 15.168m4-4L5.568 1.752A1.25 1.25 0 003.8 3.52l9.4 9.4"
+                    />
+                  </svg>
+                  <span>Talk with {cloneData.length > 0 ? clone : name}</span>
+                </button>
+              </Link>
+              <Link to={"/chatbots"}>
+                {show ? <Chatbot data={data.data.apiKey} /> : ""}
+                <button className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M14.752 11.168l-9.4-9.4a1.25 1.25 0 011.768-1.768l9.4 9.4m0 0l4.2 4.2m-4.2-4.2L19.824 21.34a1.25 1.25 0 01-1.768 1.768L10.752 15.168m4-4L5.568 1.752A1.25 1.25 0 003.8 3.52l9.4 9.4"
+                    />
+                  </svg>
+                  <span>Chat with {cloneData.length > 0 ? clone : name}</span>
+                </button>
+              </Link>
               <button
                 className="bg-zinc-600 hover:bg-zinc-700 p-2 rounded-full"
                 // onClick={cloneProect}

@@ -8,7 +8,7 @@ const BlankTemplatePopup = ({ onClose }) => {
   const [configs, setConfigs] = useState([]);
   const [selectedConfig, setSelectedConfig] = useState(null);
   const [showDetailsPopup, setShowDetailsPopup] = useState(false);
-  const twilioNumber = "+12176730597"; // Default Twilio number
+  const twilioNumber = "+12176730589"; // Default Twilio number
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,6 +45,7 @@ const BlankTemplatePopup = ({ onClose }) => {
     }
 
     try {
+      console.log(name, instruction, selectedConfig._id, twilioNumber)
       const response = await axios.post(
         "https://users.trainright.fit/api/configs/createAssistant",
         {
@@ -60,6 +61,7 @@ const BlankTemplatePopup = ({ onClose }) => {
         }
       );
       console.log("Assistant created successfully:", response.data);
+   
       // Optionally, you can handle success message or any other action here
       // For example, navigate to a different page
       navigate("/assistantlist"); // Navigate to dashboard or any other route after successful creation

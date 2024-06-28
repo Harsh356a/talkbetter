@@ -50,6 +50,7 @@ const Chatbot = ({ data }) => {
           value={message}
           onChange={(event) => setMessage(event.target.value)}
           placeholder="Type a message..."
+          className="text-black"
         />
         <button type="submit">Send</button>
       </form>

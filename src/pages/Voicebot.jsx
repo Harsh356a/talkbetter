@@ -126,33 +126,16 @@ const Voicebot = () => {
   };
 
   return (
-    <div>
-      <h1 style={{ fontSize: "20px" }}>Voice Assistant Application</h1>
-      <div style={{ position: "fixed", top: "500px", right: "650px" }}>
-        <div className="check">
+    <div className="voicebot-container">
+      <h1>Voice Assistant Applications</h1>
+      <div className="response-container">
+        <div className="response-text">
           <h2>{text}</h2>
         </div>
         <button
           onClick={handleSpeech}
           disabled={isLoading}
-          style={{
-            width: "60px",
-            height: "60px",
-            borderRadius: "50%",
-            backgroundColor: isListening
-              ? "#FF5733"
-              : isLoading
-              ? "#FCA321"
-              : "#4CAF50",
-            color: "white",
-            border: "none",
-            fontSize: "16px",
-            cursor: isLoading ? "not-allowed" : "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            position: "relative",
-          }}
+          className={`voice-button ${isListening ? "listening" : isLoading ? "loading" : ""}`}
         >
           {isListening ? (
             "Stop"
@@ -165,6 +148,75 @@ const Voicebot = () => {
       </div>
       <style>
         {`
+        .voicebot-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          background: linear-gradient(to right, #f8cdda, #1d2b64);
+          color: white;
+          font-family: 'Arial', sans-serif;
+        }
+
+        .voicebot-container h1 {
+          font-size: 2.5rem;
+          margin-bottom: 2rem;
+        }
+
+        .response-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 80%;
+          max-width: 600px;
+          background: rgba(255, 255, 255, 0.1);
+          padding: 2rem;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .response-text {
+          width: 100%;
+          max-height: 150px;
+          overflow-y: auto;
+          padding: 1rem;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 5px;
+          margin-bottom: 1.5rem;
+        }
+
+        .response-text h2 {
+          margin: 0;
+          word-wrap: break-word;
+        }
+
+        .voice-button {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          background: #4CAF50;
+          color: white;
+          border: none;
+          font-size: 16px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          transition: background 0.3s;
+        }
+
+        .voice-button.listening {
+          background: #FF5733;
+        }
+
+        .voice-button.loading {
+          background: #FCA321;
+          cursor: not-allowed;
+        }
+
         .linear-spinner {
           position: absolute;
           width: 100%;

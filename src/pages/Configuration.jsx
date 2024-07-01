@@ -230,7 +230,7 @@ const Configuration = () => {
 
               {isVisible && (
                 <div className="fixed  inset-0 flex items-center justify-center  bg-black bg-opacity-50">
-                  <div className=" p-8 h-1/2 bg-[#0E0E18] rounded shadow-lg relative">
+                  <div className=" p-8 h-full bg-[#0E0E18] rounded shadow-lg relative">
                     <button
                       className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
                       onClick={toggleVisibility}

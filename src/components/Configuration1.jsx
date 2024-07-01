@@ -23,7 +23,7 @@ const Configuration1 = ({ onClose, initialConfig }) => {
     }
 
     try {
-        console
+      console;
       const response = await axios.post(
         "https://users.trainright.fit/api/configs/createAndEditConfig",
         { ...config, id: config._id }, // Include the ID in the request body
@@ -95,7 +95,10 @@ const Configuration1 = ({ onClose, initialConfig }) => {
         <button className="text-white bg-red-500 px-3 py-2" onClick={onClose}>
           Cancel
         </button>
-        <button className="text-white bg-green-500 px-3 py-2" onClick={handleSave}>
+        <button
+          className="text-white bg-green-500 px-3 py-2"
+          onClick={handleSave}
+        >
           Save
         </button>
       </div>

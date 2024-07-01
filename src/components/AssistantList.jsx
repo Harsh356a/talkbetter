@@ -71,7 +71,7 @@ const AssistantsList = () => {
               style={{ height: "300px" }}
             >
               <div className="overflow-y-auto h-full ">
-                <h2 className="text-xl text-white font-semibold mb-2">
+                <h2 className="text-xl text-white font-semibold mb-2" onClick={()=>navigate(`/configure/${assistant._id}`)}>
                   {assistant.name}
                 </h2>
                 <p className="text-white mb-2">{assistant.instructions}</p>

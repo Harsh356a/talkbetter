@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Configuration from "./Configuration1"; // Import the Configuration component
 
 const BlankTemplatePopup = ({ onClose }) => {
@@ -169,6 +169,9 @@ const BlankTemplatePopup = ({ onClose }) => {
           <button className="text-white" onClick={onClose}>
             Back
           </button>
+          <Link to="/configured">
+          <button className="px-5 py-2 bg-yellow-400 rounded-md text-white">Create Config</button>
+          </Link>
           <button
             className="px-5 py-2 bg-green-400 rounded-md text-white"
             onClick={handleCreateAssistant}

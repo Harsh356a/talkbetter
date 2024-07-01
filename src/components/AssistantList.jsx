@@ -38,7 +38,7 @@ const AssistantsList = () => {
     fetchAssistants();
   }, []);
 
-  const handleAssistantClick = (id) => {
+  const handleEditButtonClick = (id) => {
     setSelectedAssistantId(id);
     setShowEditPopup(true);
   };
@@ -61,7 +61,6 @@ const AssistantsList = () => {
           <div
             key={assistant._id}
             className="assistant-card"
-            onClick={() => handleAssistantClick(assistant._id)}
           >
             <div
               className={`bg-zinc-900 rounded-lg p-4 relative cursor-pointer ${
@@ -92,7 +91,10 @@ const AssistantsList = () => {
                     {new Date(assistant.updatedAt).toLocaleString()}
                   </p>
                   <div>
-                    <button className="bg-green-400 px-3 py-1 rounded absolute bottom-5 right-10">
+                    <button
+                      className="bg-green-400 px-3 py-1 rounded absolute bottom-5 right-10"
+                      onClick={() => handleEditButtonClick(assistant._id)}
+                    >
                       Edit Assistant
                     </button>
                   </div>

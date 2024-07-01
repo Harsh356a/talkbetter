@@ -44,7 +44,7 @@ const FormPopup = ({ onClose, onSubmit }) => {
           },
         }
       );
-      console.log("posted", response.data);
+      console.log("post", response.data);
       onSubmit(response.data);
     } catch (error) {
       console.error("Error posting audio file:", error);

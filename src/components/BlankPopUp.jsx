@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Configuration from "./Configuration1"; // Import the Configuration component
 
 const BlankTemplatePopup = ({ onClose }) => {
   const [name, setName] = useState("");
@@ -8,6 +9,7 @@ const BlankTemplatePopup = ({ onClose }) => {
   const [configs, setConfigs] = useState([]);
   const [selectedConfig, setSelectedConfig] = useState(null);
   const [showDetailsPopup, setShowDetailsPopup] = useState(false);
+  const [showConfigPopup, setShowConfigPopup] = useState(false); // State to handle config popup
   const twilioNumber = "+12176730432"; // Default Twilio number
   const navigate = useNavigate();
 
@@ -45,7 +47,7 @@ const BlankTemplatePopup = ({ onClose }) => {
     }
 
     try {
-      console.log(name, instruction, selectedConfig._id, twilioNumber)
+      console.log(name, instruction, selectedConfig._id, twilioNumber);
       const response = await axios.post(
         "https://users.trainright.fit/api/configs/createAssistant",
         {
@@ -61,7 +63,7 @@ const BlankTemplatePopup = ({ onClose }) => {
         }
       );
       console.log("Assistant created successfully:", response.data);
-   
+
       // Optionally, you can handle success message or any other action here
       // For example, navigate to a different page
       navigate("/assistantlist"); // Navigate to dashboard or any other route after successful creation
@@ -79,6 +81,15 @@ const BlankTemplatePopup = ({ onClose }) => {
   const handleCloseDetailsPopup = () => {
     setShowDetailsPopup(false);
     setSelectedConfig(null);
+  };
+
+  const handleEditConfig = () => {
+    setShowDetailsPopup(false); // Close the details popup
+    setShowConfigPopup(true); // Open the config popup
+  };
+
+  const handleCloseConfigPopup = () => {
+    setShowConfigPopup(false);
   };
 
   return (
@@ -223,8 +234,21 @@ const BlankTemplatePopup = ({ onClose }) => {
             >
               Close
             </button>
+            <button
+              className="text-white bg-green-500 px-3 py-2"
+              onClick={handleEditConfig}
+            >
+              Edit
+            </button>
           </div>
         </div>
+      )}
+
+      {showConfigPopup && (
+        <Configuration
+          onClose={handleCloseConfigPopup}
+          initialConfig={selectedConfig}
+        />
       )}
     </>
   );

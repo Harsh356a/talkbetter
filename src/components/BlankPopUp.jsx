@@ -8,7 +8,7 @@ const BlankTemplatePopup = ({ onClose }) => {
   const [configs, setConfigs] = useState([]);
   const [selectedConfig, setSelectedConfig] = useState(null);
   const [showDetailsPopup, setShowDetailsPopup] = useState(false);
-  const twilioNumber = "+12176730522"; // Default Twilio number
+  const twilioNumber = "+12176730432"; // Default Twilio number
   const navigate = useNavigate();
 
   useEffect(() => {
